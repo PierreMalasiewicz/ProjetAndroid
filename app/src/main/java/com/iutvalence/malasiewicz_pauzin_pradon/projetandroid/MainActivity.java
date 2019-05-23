@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     public class getAsync extends AsyncTask<String , Void ,String> {
         String server_response;
 
@@ -62,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             return null;
         }
+
 
         @Override
         protected void onPostExecute(String s) {
