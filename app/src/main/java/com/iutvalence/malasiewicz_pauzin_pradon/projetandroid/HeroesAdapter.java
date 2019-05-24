@@ -8,14 +8,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class HeroesAdapter extends ArrayAdapter {
 
     private String[] heroes;
-    public HeroesAdapter(@NonNull Context context, int resource, @NonNull Object[] objects) {
+    private View cview;
+    ArrayList<JSONObject> heroObjs;
+    JSONObject dataJson;
+    Boolean gotData = false;
+    int position;
+
+    public HeroesAdapter(@NonNull Context context, int resource, @NonNull Object[] objects, ArrayList<JSONObject> heroObjs) {
         super(context, resource, objects);
         this.heroes = (String[]) objects;
+        this.heroObjs = heroObjs;
     }
 
 
@@ -23,14 +34,30 @@ public class HeroesAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        this.position = position;
+
         if(convertView==null)
         {
             convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.hero_lv_layout, parent, false);
         }
 
+        this.cview = convertView;
+
         TextView heroName = convertView.findViewById(R.id.heroNameTextView);
         heroName.setText(heroes[position]);
 
+        try {
+            JSONObject avg = heroObjs.get(position).getJSONObject("average");
+            TextView avgdmg = convertView.findViewById(R.id.avgdmgvalue);
+            avgdmg.setText(avg.get("allDamageDoneAvgPer10Min").toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         return convertView;
     }
+
 }

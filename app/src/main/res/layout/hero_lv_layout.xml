@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,6 +11,28 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Hero"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/avgdmgtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Average Damager per 10 minutes : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heroNameTextView" />
+
+    <TextView
+        android:id="@+id/avgdmgvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/avgdmgtext"
+        app:layout_constraintStart_toEndOf="@+id/avgdmgtext"
+        app:layout_constraintTop_toTopOf="@+id/avgdmgtext" />
+
 </android.support.constraint.ConstraintLayout>

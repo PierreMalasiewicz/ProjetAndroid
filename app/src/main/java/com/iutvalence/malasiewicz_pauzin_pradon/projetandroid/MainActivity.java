@@ -2,9 +2,8 @@ package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String requestStr = "https://ow-api.com/v1/stats/"+platformSpinner.getSelectedItem().toString()+"/"+regionSpinner.getSelectedItem().toString()+"/"+getBattleTag()+"/profile";
+                String requestStr = "https://ow-api.com/v1/stats/"+platformSpinner.getSelectedItem().toString()+"/"+regionSpinner.getSelectedItem().toString()+"/"+getBattleTag()+"/complete";
                 Log.e("request", requestStr);
                 new getAsync().execute(requestStr);
                 logoCharge.setVisibility(View.VISIBLE);
@@ -142,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Response", "" + server_response);
             Intent detailsIntent = new Intent(getBaseContext(), ProfileDetailsActivity.class);
             detailsIntent.putExtra("API_REQUEST_RESPONSE", server_response);
+            detailsIntent.putExtra("USER_REGION", regionSpinner.getSelectedItem().toString());
+            detailsIntent.putExtra("USER_PLATFORM", platformSpinner.getSelectedItem().toString());
+            detailsIntent.putExtra("USER_BATTLETAG", getBattleTag());
             startActivity(detailsIntent);
 
         }
