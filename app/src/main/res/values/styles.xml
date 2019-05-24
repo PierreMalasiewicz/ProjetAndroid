@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#FA9C1D</item>
+        <item name="colorPrimaryDark">#4A4C4E</item>
+        <item name="colorAccent">#218ffe</item>
+        <item name="android:fontFamily">@font/koverwatch</item>
     </style>
 
 </resources>

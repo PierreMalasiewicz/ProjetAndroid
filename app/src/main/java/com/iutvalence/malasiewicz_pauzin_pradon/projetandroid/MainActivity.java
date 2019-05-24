@@ -2,9 +2,12 @@ package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,6 +59,22 @@ public class MainActivity extends AppCompatActivity {
         logoCharge.setVisibility(View.GONE);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_screen_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.about) {
+            startAboutActivity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void initSpinners()
     {
         platformSpinner = findViewById(R.id.platformSpinner);
@@ -79,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
     {
         String btTag = String.valueOf(battletag.getText());
         return btTag.replace("#","-");
+    }
+
+    private void startAboutActivity()
+    {
+        this.startActivity(new Intent(this, AboutActivity.class));
     }
 
     public class getAsync extends AsyncTask<String , Void ,String> {
