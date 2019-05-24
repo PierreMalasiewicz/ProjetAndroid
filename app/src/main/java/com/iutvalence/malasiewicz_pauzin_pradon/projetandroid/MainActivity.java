@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,22 +17,56 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    Spinner platformSpinner, regionSpinner;
+    String[] plaftorms = { "pc", "ps4", "xbo"};
+    String[] regions = { "eu", "us", "asia"};
+    TextView battletag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        battletag = findViewById(R.id.battleTagTV);
+        initSpinners();
 
         Button test = findViewById(R.id.button);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new getAsync().execute("https://ow-api.com/v1/stats/pc/eu/Zephyr-22898/profile");
+                String requestStr = "https://ow-api.com/v1/stats/"+platformSpinner.getSelectedItem().toString()+"/"+regionSpinner.getSelectedItem().toString()+"/"+getBattleTag()+"/profile";
+                Log.e("request", requestStr);
+                new getAsync().execute(requestStr);
             }
         });
+    }
+
+    public void initSpinners()
+    {
+        platformSpinner = findViewById(R.id.platformSpinner);
+        ArrayAdapter<String> platformAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, plaftorms);
+
+        platformAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        platformSpinner.setAdapter(platformAdapter);
+
+
+        regionSpinner = findViewById(R.id.regionSpinner);
+        ArrayAdapter<String> regionAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, regions);
+
+        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        regionSpinner.setAdapter(regionAdapter);
+
+    }
+
+    private String getBattleTag()
+    {
+        String btTag = String.valueOf(battletag.getText());
+        return btTag.replace("#","-");
     }
 
     public class getAsync extends AsyncTask<String , Void ,String> {
