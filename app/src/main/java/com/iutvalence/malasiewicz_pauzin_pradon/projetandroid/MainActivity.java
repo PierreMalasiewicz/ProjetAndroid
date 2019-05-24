@@ -1,5 +1,6 @@
 package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     String[] plaftorms = { "pc", "ps4", "xbo"};
     String[] regions = { "eu", "us", "asia"};
     TextView battletag;
+    ProgressBar logoCharge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         battletag = findViewById(R.id.battleTagTV);
+        logoCharge = findViewById(R.id.logoCharge);
         initSpinners();
 
         Button test = findViewById(R.id.button);
@@ -40,8 +44,16 @@ public class MainActivity extends AppCompatActivity {
                 String requestStr = "https://ow-api.com/v1/stats/"+platformSpinner.getSelectedItem().toString()+"/"+regionSpinner.getSelectedItem().toString()+"/"+getBattleTag()+"/profile";
                 Log.e("request", requestStr);
                 new getAsync().execute(requestStr);
+                logoCharge.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        logoCharge.setVisibility(View.GONE);
     }
 
     public void initSpinners()
@@ -104,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.e("Response", "" + server_response);
-
+            Intent detailsIntent = new Intent(getBaseContext(), ProfileDetailsActivity.class);
+            detailsIntent.putExtra("API_REQUEST_RESPONSE", server_response);
+            startActivity(detailsIntent);
 
         }
 
