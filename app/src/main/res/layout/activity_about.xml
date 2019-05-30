@@ -42,5 +42,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/overwatch_logo" />
+        app:srcCompat="@drawable/overlate" />
 </android.support.constraint.ConstraintLayout>
