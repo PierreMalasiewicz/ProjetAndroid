@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,9 +56,20 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ListView heroesListView = findViewById(R.id.heroesListView);
+        final ListView heroesListView = findViewById(R.id.heroesListView);
         HeroesAdapter heroesAdapter = new HeroesAdapter(this, android.R.layout.simple_list_item_2, heroes, heroobj);
         heroesListView.setAdapter(heroesAdapter);
+
+        heroesListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String heroJSonObjString = heroobj.get(heroesListView.getSelectedItemPosition()).toString();
+                Intent heroDetailIntent = new Intent(getBaseContext(), HeroDetailActivity.class);
+                heroDetailIntent.putExtra("HERO_JSON_OBJECT", heroJSonObjString);
+                startActivity(heroDetailIntent);
+
+            }
+        });
 
 
     }

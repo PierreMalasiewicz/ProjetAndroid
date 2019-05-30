@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HeroDetailActivity">
+
+    <TextView
+        android:id="@+id/heroNameTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Hero"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/avgdmgtext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Average Damage per 10 minutes : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue2" />
+
+    <TextView
+        android:id="@+id/avgdmgvalue2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/avgdmgtext2"
+        app:layout_constraintStart_toEndOf="@+id/avgdmgtext2"
+        app:layout_constraintTop_toTopOf="@+id/avgdmgtext2" />
+
+    <TextView
+        android:id="@+id/heroTimePLayedValue2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/heroNameTextView2"
+        app:layout_constraintStart_toStartOf="@+id/heroNameTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/heroNameTextView2" />
+
+    <TextView
+        android:id="@+id/avgKillsText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="Avegare kils per 10 minutes :"
+        app:layout_constraintEnd_toStartOf="@+id/avgKillsValue2"
+        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue2" />
+
+    <TextView
+        android:id="@+id/avgKillsValue2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/avgKillsText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avgKillsText2" />
+</android.support.constraint.ConstraintLayout>
