@@ -46,17 +46,19 @@ public class HeroesAdapter extends ArrayAdapter {
         TextView heroName = convertView.findViewById(R.id.heroNameTextView);
         heroName.setText(heroes[position]);
 
+        TextView timePlayed = convertView.findViewById(R.id.heroTimePLayedValue);
+        TextView avgdmg = convertView.findViewById(R.id.avgdmgvalue);
+        TextView avgkills = convertView.findViewById(R.id.avgKillsValue);
+
         try {
             JSONObject avg = heroObjs.get(position).getJSONObject("average");
-            TextView avgdmg = convertView.findViewById(R.id.avgdmgvalue);
+            JSONObject game = heroObjs.get(position).getJSONObject("game");
+            timePlayed.setText(game.get("timePlayed").toString());
             avgdmg.setText(avg.get("allDamageDoneAvgPer10Min").toString());
+            avgkills.setText(avg.get("eliminationsAvgPer10Min").toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
         return convertView;
     }
 
