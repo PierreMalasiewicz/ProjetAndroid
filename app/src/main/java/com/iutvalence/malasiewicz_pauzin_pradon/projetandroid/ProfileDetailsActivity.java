@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         String region = intent.getStringExtra("USER_REGION");
         String battletag = intent.getStringExtra("USER_BATTLETAG");
 
+        setTitle(battletag);
+
         heroobj = new ArrayList<JSONObject>();
 
         TextView json = findViewById(R.id.JsonTV);
@@ -45,7 +49,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 heroobj.add(heroStats);
             }
         } catch (Throwable t) {
-            Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+            Log.e("Error", "Could not parse malformed JSON: \"" + json + "\"");
         }
 
         try {
@@ -55,9 +59,20 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ListView heroesListView = findViewById(R.id.heroesListView);
+        final ListView heroesListView = findViewById(R.id.heroesListView);
         HeroesAdapter heroesAdapter = new HeroesAdapter(this, android.R.layout.simple_list_item_2, heroes, heroobj);
         heroesListView.setAdapter(heroesAdapter);
+
+        heroesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String heroJSonObjString = heroobj.get(position).toString();
+                Intent heroDetailIntent = new Intent(getBaseContext(), HeroDetailActivity.class);
+                heroDetailIntent.putExtra("HERO_JSON_OBJECT", heroJSonObjString);
+                heroDetailIntent.putExtra("HERO_NAME",heroes[position]);
+                startActivity(heroDetailIntent);
+            }
+        });
 
 
     }
