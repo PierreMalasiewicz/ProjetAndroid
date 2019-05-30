@@ -1,6 +1,7 @@
 package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     String[] regions = { "eu", "us", "asia"};
     TextView battletag;
     ProgressBar logoCharge;
+    String btTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 logoCharge.setVisibility(View.VISIBLE);
             }
         });
+
+        SharedPreferences prefs = getSharedPreferences("BattleTagSave", MODE_PRIVATE);
+        String restoredBattleTag = prefs.getString("Battletag", null);
+        if (restoredBattleTag != null) {
+            battletag.setText(restoredBattleTag);
+        }
     }
 
 
@@ -55,6 +63,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         logoCharge.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        SharedPreferences.Editor editor = getSharedPreferences("BattleTagSave", MODE_PRIVATE).edit();
+        editor.putString("Battletag", btTag);
+        editor.apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor editor = getSharedPreferences("BattleTagSave", MODE_PRIVATE).edit();
+        editor.putString("Battletag", btTag);
+        editor.apply();
     }
 
     @Override
@@ -94,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getBattleTag()
     {
-        String btTag = String.valueOf(battletag.getText());
+        btTag = String.valueOf(battletag.getText());
         return btTag.replace("#","-");
     }
 
