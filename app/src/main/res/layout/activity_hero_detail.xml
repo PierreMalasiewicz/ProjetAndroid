@@ -7,7 +7,7 @@
     tools:context=".HeroDetailActivity">
 
     <TextView
-        android:id="@+id/heroNameTextView2"
+        android:id="@+id/heroNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -21,50 +21,107 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/avgdmgtext2"
+        android:id="@+id/avgdmgtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Average Damage per 10 minutes : "
+        android:text="Average Damage per 10 min : "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue2" />
+        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue" />
 
     <TextView
-        android:id="@+id/avgdmgvalue2"
+        android:id="@+id/avgdmgvalue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/avgdmgtext2"
-        app:layout_constraintStart_toEndOf="@+id/avgdmgtext2"
-        app:layout_constraintTop_toTopOf="@+id/avgdmgtext2" />
+        app:layout_constraintBottom_toBottomOf="@+id/avgdmgtext"
+        app:layout_constraintStart_toEndOf="@+id/avgdmgtext"
+        app:layout_constraintTop_toTopOf="@+id/avgdmgtext" />
 
     <TextView
-        android:id="@+id/heroTimePLayedValue2"
+        android:id="@+id/heroTimePLayedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/heroNameTextView2"
-        app:layout_constraintStart_toStartOf="@+id/heroNameTextView2"
-        app:layout_constraintTop_toBottomOf="@+id/heroNameTextView2" />
+        app:layout_constraintEnd_toEndOf="@+id/heroNameTextView"
+        app:layout_constraintStart_toStartOf="@+id/heroNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/heroNameTextView" />
 
     <TextView
-        android:id="@+id/avgKillsText2"
+        android:id="@+id/avgKillsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="Avegare kils per 10 minutes :"
-        app:layout_constraintEnd_toStartOf="@+id/avgKillsValue2"
-        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue2" />
+        android:text="Avegare kils per 10 min :"
+        app:layout_constraintEnd_toStartOf="@+id/avgKillsValue"
+        app:layout_constraintTop_toBottomOf="@+id/heroTimePLayedValue" />
 
     <TextView
-        android:id="@+id/avgKillsValue2"
+        android:id="@+id/avgKillsValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/avgKillsText2"
+        app:layout_constraintBottom_toBottomOf="@+id/avgKillsText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/avgKillsText2" />
+        app:layout_constraintTop_toTopOf="@+id/avgKillsText" />
+
+    <TextView
+        android:id="@+id/avgDeathText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="Average death per 10 min :"
+        app:layout_constraintEnd_toStartOf="@+id/avgDeathValue"
+        app:layout_constraintTop_toBottomOf="@+id/avgKillsText" />
+
+    <TextView
+        android:id="@+id/avgDeathValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/avgDeathText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avgDeathText" />
+
+    <TextView
+        android:id="@+id/mostDmgText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Most damage dealt in a game :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avgdmgtext" />
+
+    <TextView
+        android:id="@+id/mostDmgValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mostDmgText"
+        app:layout_constraintStart_toEndOf="@+id/mostDmgText"
+        app:layout_constraintTop_toTopOf="@+id/mostDmgText" />
+
+    <TextView
+        android:id="@+id/mostTimeObjText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Most time on objective in a game :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mostDmgText" />
+
+    <TextView
+        android:id="@+id/mostTimeObjValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mostTimeObjText"
+        app:layout_constraintStart_toEndOf="@+id/mostTimeObjText"
+        app:layout_constraintTop_toTopOf="@+id/mostTimeObjText" />
 </android.support.constraint.ConstraintLayout>
