@@ -18,7 +18,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
     String requestResponse;
     JSONObject dataJson;
-    String[] heroes = { "allHeroes", "ana", "baptiste", "bastion", "brigitte", "dVa", "doomfist", "genji", "hanzo", "junkrat", "lucio", "mccree", "mei", "mercy", "moira", "orisa", "pharah", "reaper", "reinhardt", "soldier76", "sombra", "symmetra", "torbjorn", "tracer", "widowmaker", "winston", "wreckingBall", "zarya", "zenyatta"};
+    String[] heroes = { "ana", "baptiste", "bastion", "brigitte", "dVa", "doomfist", "genji", "hanzo", "junkrat", "lucio", "mccree", "mei", "mercy", "moira", "orisa", "pharah", "reaper", "reinhardt", "soldier76", "sombra", "symmetra", "torbjorn", "tracer", "widowmaker", "winston", "wreckingBall", "zarya", "zenyatta"};
     ArrayList<JSONObject> heroobj;
 
     @Override
@@ -36,8 +36,48 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         heroobj = new ArrayList<JSONObject>();
 
-        TextView json = findViewById(R.id.JsonTV);
-        json.setText(requestResponse);
+        /*TextView json = findViewById(R.id.JsonTV);
+        json.setText(requestResponse);*/
+        String level = "??";
+        String wins = "??";
+        String KDA = "??";
+        String playTime = "??";
+        String AVG_DMG = "??";
+        String AVG_HEAL = "??";
+        int assists = 0;
+
+        try {
+            level = new JSONObject(requestResponse).getString("level");
+            JSONObject QP_Data = new JSONObject(requestResponse).getJSONObject("quickPlayStats");
+            wins = QP_Data.getJSONObject("games").getString("won");
+            assists = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("assists").getInt("defensiveAssists") + QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("assists").getInt("offensiveAssists");
+            KDA = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("combat").getString("eliminations") + " / "
+                    + QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("combat").getString("deaths") + " / "
+                    + assists;
+            playTime = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("game").getString("timePlayed");
+            AVG_DMG = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("average").getString("allDamageDoneAvgPer10Min");
+            AVG_HEAL = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("average").getString("healingDoneAvgPer10Min");
+        }
+        catch (Exception ex) {
+            Log.e("err:", ex.getMessage());
+        }
+        TextView levelTV = findViewById(R.id.LevelField);
+        levelTV.setText(level);
+
+        TextView winsTV = findViewById(R.id.WinsField);
+        winsTV.setText(wins);
+
+        TextView KDA_TV = findViewById(R.id.KDA_Field);
+        KDA_TV.setText(KDA);
+
+        TextView PT = findViewById(R.id.playTime);
+        PT.setText(playTime);
+
+        TextView DMG_TV = findViewById(R.id.avgDMG);
+        DMG_TV.setText(AVG_DMG);
+
+        TextView HEAL_TV = findViewById(R.id.avgHeal);
+        HEAL_TV.setText(AVG_HEAL);
 
         try {
             dataJson = new JSONObject(requestResponse);
@@ -49,7 +89,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
                 heroobj.add(heroStats);
             }
         } catch (Throwable t) {
-            Log.e("Error", "Could not parse malformed JSON: \"" + json + "\"");
+            Log.e("Error", "Could not parse malformed JSON: \"" + dataJson + "\"");
         }
 
         try {
