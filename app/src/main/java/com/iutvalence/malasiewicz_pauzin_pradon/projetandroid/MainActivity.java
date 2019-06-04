@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -163,12 +164,29 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.e("Response", "" + server_response);
-            Intent detailsIntent = new Intent(getBaseContext(), ProfileDetailsActivity.class);
-            detailsIntent.putExtra("API_REQUEST_RESPONSE", server_response);
-            detailsIntent.putExtra("USER_REGION", regionSpinner.getSelectedItem().toString());
-            detailsIntent.putExtra("USER_PLATFORM", platformSpinner.getSelectedItem().toString());
-            detailsIntent.putExtra("USER_BATTLETAG", getBattleTag());
-            startActivity(detailsIntent);
+            if(server_response.contains("error"))
+            {
+                View constraintLayout = findViewById(R.id.constraintLayout);
+                Snackbar snackbar = Snackbar.make(constraintLayout, "Error, Player not found", 5000);
+                snackbar.show();
+                logoCharge.setVisibility(View.GONE);
+            }
+            else if(server_response!=null)
+            {
+                Intent detailsIntent = new Intent(getBaseContext(), ProfileDetailsActivity.class);
+                detailsIntent.putExtra("API_REQUEST_RESPONSE", server_response);
+                detailsIntent.putExtra("USER_REGION", regionSpinner.getSelectedItem().toString());
+                detailsIntent.putExtra("USER_PLATFORM", platformSpinner.getSelectedItem().toString());
+                detailsIntent.putExtra("USER_BATTLETAG", getBattleTag());
+                startActivity(detailsIntent);
+            }
+            else
+            {
+                View constraintLayout = findViewById(R.id.constraintLayout);
+                Snackbar snackbar = Snackbar.make(constraintLayout, "Error, couldn't contact API", 5000);
+                snackbar.show();
+                logoCharge.setVisibility(View.GONE);
+            }
 
         }
 

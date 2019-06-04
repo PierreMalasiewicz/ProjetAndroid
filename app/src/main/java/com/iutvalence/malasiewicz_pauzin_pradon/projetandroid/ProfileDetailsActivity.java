@@ -92,13 +92,6 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             Log.e("Error", "Could not parse malformed JSON: \"" + dataJson + "\"");
         }
 
-        try {
-            String truc = dataJson.get("level").toString();
-            Log.e("truc", truc);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         final ListView heroesListView = findViewById(R.id.heroesListView);
         HeroesAdapter heroesAdapter = new HeroesAdapter(this, android.R.layout.simple_list_item_2, heroes, heroobj);
         heroesListView.setAdapter(heroesAdapter);
