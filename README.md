@@ -14,6 +14,10 @@ https://ow-api.com/docs/
 ## Work done
 All that is mentionned in Features.
 
+## Work Distribution
+Pierre Malasiewicz = Api request with the AsyncTask, "Home Activity", the class "HeroesAdapter"
+Mathilde Pauzin = "About" Activity, Design (All app & Logo)
+Baptiste Pradon = Data Parsing & Data Display, A bit of design
+
 ## Possible improvements
-We can improve the profile details design to make it easier to read, and more beautiful.
-(For example by displaying user's profile picture)
+We can increase the amount of displayed data.
