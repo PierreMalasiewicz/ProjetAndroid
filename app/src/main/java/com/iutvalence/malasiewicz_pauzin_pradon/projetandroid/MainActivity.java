@@ -1,5 +1,6 @@
 package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("request", requestStr);
                 new getAsync().execute(requestStr);
                 logoCharge.setVisibility(View.VISIBLE);
+                closeKeyboard();
             }
         });
 
@@ -171,6 +174,13 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.show();
                 logoCharge.setVisibility(View.GONE);
             }
+            else if(server_response.contains("\"private\":true"))
+            {
+                View constraintLayout = findViewById(R.id.constraintLayout);
+                Snackbar snackbar = Snackbar.make(constraintLayout, "Error, Player profile is private", 5000);
+                snackbar.show();
+                logoCharge.setVisibility(View.GONE);
+            }
             else if(server_response!=null)
             {
                 Intent detailsIntent = new Intent(getBaseContext(), ProfileDetailsActivity.class);
@@ -215,7 +225,13 @@ public class MainActivity extends AppCompatActivity {
             }
             return response.toString();
         }
+    }
 
-
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
