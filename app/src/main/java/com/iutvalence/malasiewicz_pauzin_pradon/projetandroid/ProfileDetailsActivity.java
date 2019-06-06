@@ -1,13 +1,17 @@
 package com.iutvalence.malasiewicz_pauzin_pradon.projetandroid;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,10 +48,14 @@ public class ProfileDetailsActivity extends AppCompatActivity {
         String playTime = "??";
         String AVG_DMG = "??";
         String AVG_HEAL = "??";
+        String iconURL = "";
+        String levelIconURL = "";
+        String prestigeIconURL = "";
         int assists = 0;
 
         try {
-            level = new JSONObject(requestResponse).getString("level");
+            dataJson = new JSONObject(requestResponse);
+            level = dataJson.getString("level");
             JSONObject QP_Data = new JSONObject(requestResponse).getJSONObject("quickPlayStats");
             wins = QP_Data.getJSONObject("games").getString("won");
             assists = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("assists").getInt("defensiveAssists") + QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("assists").getInt("offensiveAssists");
@@ -57,6 +65,11 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             playTime = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("game").getString("timePlayed");
             AVG_DMG = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("average").getString("allDamageDoneAvgPer10Min");
             AVG_HEAL = QP_Data.getJSONObject("careerStats").getJSONObject("allHeroes").getJSONObject("average").getString("healingDoneAvgPer10Min");
+
+            iconURL = dataJson.get("icon").toString();
+            Log.e("iconURL", iconURL);
+            levelIconURL = dataJson.get("levelIcon").toString();
+            prestigeIconURL = dataJson.get("prestigeIcon").toString();
         }
         catch (Exception ex) {
             Log.e("err:", ex.getMessage());
@@ -78,6 +91,18 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         TextView HEAL_TV = findViewById(R.id.avgHeal);
         HEAL_TV.setText(AVG_HEAL);
+
+        ImageView icon = findViewById(R.id.icon);
+        Glide.with(this).load(iconURL).into(icon);
+
+        ImageView levelIcon = findViewById(R.id.levelIcon);
+        Glide.with(this).load(levelIconURL).into(levelIcon);
+
+        ImageView prestigeIcon = findViewById(R.id.prestigeIcon);
+        Glide.with(this).load(prestigeIconURL).into(prestigeIcon);
+
+
+
 
         try {
             dataJson = new JSONObject(requestResponse);
